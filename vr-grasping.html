@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shape inferred through action — VR psychophysics — Yoon H. Bai</title>
+<meta name="description" content="A VR-based psychophysical tool that recovers the 3D shape a person infers from how they grasp virtual objects: task, measurement chain, and the validation that makes it a calibrated readout of perception." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="static/site.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a href="index.html" class="nav-name">Yoon H. Bai</a>
+    <div class="nav-links">
+      <a href="3d-surface.html">NeuroAI</a>
+      <a href="straightening.html">Theory</a>
+      <a href="vr-grasping.html">Behavior</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header alt-bg">
+  <div class="container narrow">
+    <a href="index.html#research" class="breadcrumb">← Research</a>
+    <div class="kicker">Behavior · VR psychophysics</div>
+    <h1>3D vision in action</h1>
+    <p class="summary">Recovering the brain's 3D perception from VR grasping</p>
+    <div class="header-links">
+      <!-- <a class="btn accent" href="PROJECT_PAGE" target="_blank" rel="noopener">Project page</a>
+           <a class="btn" href="https://github.com/yoonbai/PROJECT" target="_blank" rel="noopener">Code</a> -->
+      <a class="btn accent" href="index.html#contact">Ask me about it</a>
+    </div>
+    <p class="credit">Project led by Weiwen Tian (PhD candidate). My role: co-advisor with Jim DiCarlo in MIT</p>
+  </div>
+</header>
+
+<article class="article">
+  <div class="container narrow prose">
+
+    <h2>The question</h2>
+    <p>
+      Grasping is one of the most natural ways we engage the physical world, and it leans on several senses at once — seeing visible parts of an object, along with the hand, proprioception, and touch. Before the hand ever makes contact, though, the brain has already committed to a plan built almost entirely from <strong>vision</strong>: an internal estimate of the object's 3D shape,
+      including the parts the eyes can't see. This project asks what that visual estimate looks like, using grasp itself as the
+      readout of 3D shapes in virtual reality.
+    </p>
+    <p>
+      Grasping is a uniquely rich probe because a hand closing around an object reports on <strong>both visible and occluded
+      surfaces</strong> — something classic psychophysics struggles with screen-based surveys. Forced-choice tasks (match-to-sample, discrimination,
+      depth comparison) can't cover continuous surface and depth variables; continuous-response tasks (gauge-figure surface-normal
+      or depth-profile adjustment) can't collect responses from hidden regions, as well as long-horizon tasks in 3D space. Immersive VR environments touches all of it. To our knowledge this may be the <strong>first attempt to visualize the spatial layout of an entire object as the brain represents it, read out purely from natural behavior</strong>.
+    </p>
+
+    <div class="fig">
+      <!-- MEDIA: a short clip of the VR grasping task is ideal here.
+           <video src="static/media/vr_task.mp4" autoplay muted loop playsinline poster="static/media/vr_task_poster.jpg"></video> -->
+      <!-- <div class="media-frame placeholder">
+        <span class="ph"><span class="ico">&#9995;</span>figure / GIF / mp4 &nbsp;·&nbsp; <b>static/media/vr_combined_loop.gif</b><br>a participant reaching to grasp a virtual object (deck slides 24–25)</span>
+      </div> -->
+      <div class="gate-thumb fit">
+          <img src="static/media/vr_combined_loop.gif" alt="VR grasping" loading="lazy" />
+      </div>
+      <p class="caption"><b>Figure 1.</b> One of many VR grasping tasks. <strong> Left: </strong> short clip of a VR task where we ask a participant to grasp and lift a virtual object <strong> Right: </strong> Several finger-tip placements (red) with their intended contact points on the object (green) connected with black lines for visualizing their intentions. </p>
+    </div>
+
+    <h2>Why virtual reality</h2>
+    <p>VR provides a platform to control sensorimotor behavior (and generate training data for physical AI)</p>
+    <ul class="aims">
+      <li><div class="a-k">Isolated</div><div class="a-v"><strong>Vision as the sole external cue.</strong> Tactile feedback is disabled, for now, so the grasp reflects how far we can plan actions with limited viewpoints. Multimodal is a natural segue.</div></li>
+      <li><div class="a-k">Control</div><div class="a-v"><strong>Consistent, repeatable stimuli.</strong> The same scene can be shown identically across trials and subjects (both humans and models).</div></li>
+      <li><div class="a-k">Natural</div><div class="a-v"><strong>Immersive and interactive.</strong> Unlike screen tasks, the subject grasps in depth with a real reaching movement and interactive feedback.</div></li>
+      <li><div class="a-k">Rich</div><div class="a-v"><strong>Many conditions on tap.</strong> Scene variation, hand visibility, and conditions hard to test in real life, such as no gravity, are all software-controlled; the headset renders the world while body-tracking (gaze, hand, and more) records behavior.</div></li>
+    </ul>
+
+    <h2>Deliverables</h2>
+    <ul class="aims">
+      <li><div class="a-k">1 Tool</div><div class="a-v"><strong>Sensorimotor testbed.</strong> An immersive testbed that allows different actuators (hands, robots) to interact in 3D environments, with groundtruth meta data of the environment<em>(with millimeter precision in 3D space)</em></div></li>
+      <li><div class="a-k">2 Data</div><div class="a-v"><strong>Human inference data.</strong> Measurements associated to shape inference, physical interactions and planning, over time. Accelerates data collection for behavioral data and high-resolution electrophysiology (think BCI).</div></li>
+      <li><div class="a-k">3 Eval</div><div class="a-v"><strong>Model evaluations and alignment.</strong> Enables benchmarks and standardized evaluation of artificial systems to humans. Benchmarks points to where models fall short of human capabilities (e.g., models falling short of identifying camouflaged objects).</div></li>
+    </ul>
+
+    <h2>Where it's going</h2>
+    <p>
+      We're preparing a paper with new findings around 3D shape inference, as in, the inference quality of 3D structure from limited viewpoints. A quick preview: we first validated our VR platform's resolution, which is sensitive enough to detect differences in human shape inference capabilities across different viewing conditions, and that hand-based measurements are reliable enough to anchor human–model comparisons. So far, with novel abstract shapes, it looks like human shape inferences outperform 3D reconstruction models (across both single- and multi-view inputs). Stay tuned!
+    </p>
+
+    
+
+    
+</body>
+</html>

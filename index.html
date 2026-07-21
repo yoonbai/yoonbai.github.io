@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yoon H. Bai — 3D perception in brains and machines</title>
+<meta name="description" content="Yoon H. Bai — research on how brains and machines infer the 3D structure of the visual world: surface and motion estimation in visual cortex, the geometry of neural representations, and VR psychophysics of shape inferred through action." />
+
+<!--
+  ============================================================================
+  SITE MAP (all files live at the repo root; media in /static/media/)
+    index.html          -> this page: intro + gateway to research topics
+    3d-surface.html     -> Topic: 3D surface estimation in the brain
+    straightening.html  -> Topic: straightening & predictive coding
+    vr-grasping.html    -> Topic: VR psychophysics of grasping
+    static/site.css     -> shared styles for every page
+
+  TO ADD A NEW RESEARCH TOPIC:
+    1. Copy one of the topic pages (e.g. 3d-surface.html) to newtopic.html.
+    2. Copy one <a class="gate-card"> block below and point it at newtopic.html.
+    3. Add a nav link in the shared <nav> (appears on every page).
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="static/site.css" />
+</head>
+<body>
+
+<!-- ============ NAV (keep identical across all pages) ============ -->
+<nav class="nav">
+  <div class="nav-in">
+    <a href="index.html" class="nav-name">Yoon H. Bai</a>
+    <div class="nav-links">
+      <a href="3d-surface.html">NeuroAI</a>
+      <a href="straightening.html">Theory</a>
+      <a href="vr-grasping.html">Behavior</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============  INTRO ============ -->
+<header id="hero" class="alt-bg">
+  <div class="container">
+    <h1>Extending human agency with brain science</h1>
+    <p class="affiliation">Yoon H. Bai · Research Scientist · MIT McGovern Institute for Brain Research</p>
+    <div class="hero-links">
+      <a href="index.html#research" class="btn accent" target="_blank" rel="noopener">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>Research Portfolio</a>
+      
+      <a href="https://github.com/yoonbai" class="btn" target="_blank" rel="noopener">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2C6.5 2 2 6.6 2 12.3c0 4.5 2.9 8.3 6.8 9.7.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.3-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.5-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .6 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.3 10.3 0 0 0 22 12.3C22 6.6 17.5 2 12 2z"/></svg>GitHub</a>
+      <a href="mailto:yhb@mit.edu" class="btn">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</a>
+    </div>
+    
+  </div>
+</header>
+
+<!-- ============ ABOUT ME (short intro) ============ -->
+<section class="section">
+  <div class="container narrow prose">
+    <div class="prompt-label">About</div>
+    <p class="lede">I'm a neuroscientist and computer vision engineer working at the interface of AI and the brain to implement therapeutic technology that enhances cognitive well-being and extends human agency.</p>
+    <p>
+      My research asks a basic question: how does a system — biological or artificial — make sense of the world and interact in it? I use computational models to design experiments around this question, and validate their predictions against human behavior and high-resolution brain signals. I care most about building research programs that accelerate scientific investigations and their translation into impactful applications that can improve our quality of life.
+    </p>
+  </div>
+</section>
+
+<!-- ============ GATEWAY TO RESEARCH TOPICS ============ -->
+<section id="research" class="section alt-bg">
+  <div class="container">
+    <div class="prompt-label">Research portfolio</div>
+    <h2>Three levels of research</h2>
+    <p class="section-subtitle">From neurons to computations to behavior — each links to a dedicated page that grows as the work does.</p>
+
+    <div class="gateway">
+
+      <!-- CARD 1 -->
+      <a class="gate-card" href="3d-surface.html">
+        <div class="gate-thumb fit">
+          <img src="static/media/clips_sidebyside_loop.gif" alt="Side-by-side looping clips of motion-defined 3D surface stimuli" loading="lazy" />
+        </div>
+        <div class="gate-body">
+          <div class="gate-eyebrow">Brain-aligned vision models</div>
+          <h3>3D vision in the brain</h3>
+          <p>Identifying 3D processing in the brain from moving objects, and aligning deep video models to the brain.</p>
+          <span class="gate-go">Explore</span>
+        </div>
+      </a>
+
+      <!-- CARD 2 -->
+      <a class="gate-card" href="straightening.html">
+        <div class="gate-thumb fit">
+          <img src="static/media/straightening.pdf" alt="straightening" loading="lazy" />
+        </div>
+        <div class="gate-body">
+          <div class="gate-eyebrow">Representation · Geometry</div>
+          <h3>Predictive coding in scene understanding</h3>
+          <p>How neural codes reshape moving inputs into straighter, more predictable trajectories — and where that idea now travels.</p>
+          <span class="gate-go">Explore</span>
+        </div>
+      </a>
+
+      <!-- CARD 3 -->
+      <a class="gate-card" href="vr-grasping.html">
+        <div class="gate-thumb fit">
+          <img src="static/media/vr_combined_loop.gif" alt="VR grasping" loading="lazy" />
+        </div>
+        <div class="gate-body">
+          <div class="gate-eyebrow">Behavior · VR psychophysics</div>
+          <h3>Reading the mind through the hand</h3>
+          <p>A VR platform that recovers 3D perception from how we grasp virtual objects.</p>
+          <span class="gate-go">Explore</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PUBLICATIONS ============ -->
+<section id="publications" class="section">
+  <div class="container narrow">
+    <div class="prompt-label">Publications</div>
+    <h2>Papers &amp; preprints</h2>
+    <p class="section-subtitle">Selected papers and preprints.</p>
+
+    <!-- TO ADD A PUBLICATION: copy one <li class="pub"> ... </li> block below. -->
+    <ul class="pub-list">
+
+      <li class="pub">
+        <div class="pub-year">2026</div>
+        <div>
+          <div class="pub-title"><a href="https://doi.org/10.64898/2026.05.13.724755" target="_blank" rel="noopener">Predictive coding video models capture dorsal parietal representations and human judgments for surfaces defined by motion</a></div>
+          <div class="pub-venue">bioRxiv · submitted to journal</div>
+          <div class="pub-tags">
+            <!-- <a class="pub-tag" href="https://doi.org/10.64898/2026.05.13.724755" target="_blank" rel="noopener">Preprint</a> -->
+          </div>
+        </div>
+      </li>
+
+      <li class="pub">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title"><a href="https://doi.org/10.48550/arXiv.2506.05633" target="_blank" rel="noopener">Noninvasive precision modulation of high-level neural population activity via natural vision perturbations</a></div>
+          <div class="pub-venue">arXiv · submitted to journal</div>
+          <div class="pub-tags">
+            <!-- <a class="pub-tag" href="https://doi.org/10.48550/arXiv.2506.05633" target="_blank" rel="noopener">Preprint</a> -->
+          </div>
+        </div>
+      </li>
+
+
+      <li class="pub">
+        <div class="pub-year">2022</div>
+        <div>
+          <div class="pub-title"><a href="https://pubmed.ncbi.nlm.nih.gov/38435074/" target="_blank" rel="noopener">How well do unsupervised learning algorithms model human real-time and life-long learning?</a></div>
+          <!-- <div class="pub-authors"><span class="me">Y. H. Bai</span>, <span class="fill">co-authors</span></div> -->
+          <div class="pub-venue">NeurIPS · 2022</div>
+          <!-- <div class="pub-tags"><a class="pub-tag" href="https://pubmed.ncbi.nlm.nih.gov/38435074/" target="_blank" rel="noopener">Link</a></div> -->
+        </div>
+      </li>
+
+      <li class="pub">
+        <div class="pub-year">2021</div>
+        <div>
+          <div class="pub-title"><a href="https://doi.org/10.1038/s41467-021-25939-z" target="_blank" rel="noopener">Primary visual cortex straightens natural video trajectories</a></div>
+          <!-- <div class="pub-authors"><span class="me">Y. H. Bai</span>, <span class="fill">co-authors</span></div> -->
+          <div class="pub-venue">Nature Communications · 2021</div>
+          <!-- <div class="pub-tags"><a class="pub-tag" href="https://pubmed.ncbi.nlm.nih.gov/38435074/" target="_blank" rel="noopener">Link</a></div> -->
+        </div>
+      </li>
+
+      <!-- <li class="pub">
+        <div class="pub-year">2025</div>
+        <div>
+          <span class="pub-note">Applies my framework</span>
+          <div class="pub-title"><a href="https://arxiv.org/abs/2507.00583" target="_blank" rel="noopener">AI-Generated Video Detection via Perceptual Straightening</a></div>
+          <div class="pub-authors">C. Internò, R. Geirhos, M. Olhofer, S. Liu, B. Hammer, D. Klindt</div>
+          <div class="pub-venue">NeurIPS 2025 · arXiv:2507.00583</div>
+          <div class="pub-tags"><a class="pub-tag" href="https://arxiv.org/abs/2507.00583" target="_blank" rel="noopener">arXiv</a></div>
+        </div>
+      </li> -->
+
+    </ul>
+  </div>
+</section>
+
+<!-- ============ ABOUT / BACKGROUND ============ -->
+<section id="about" class="section">
+  <div class="container narrow">
+    <div class="prompt-label">Background</div>
+    <h2>Expertise</h2>
+    <div class="record">
+      <div class="rec-row"><div class="rec-k">Leadership</div><div class="rec-v"><strong>Research Scientist, MIT McGovern Institute</strong> — leading research programs involving brain data, behavioral data (psychophysics), VR kinematics, computer vision models.</div></div>
+      <div class="rec-row"><div class="rec-k">Approach</div><div class="rec-v"><strong>Model-guided experimental design</strong> — model-to-brain and model-to-behavior comparison, mechanistic interpretability.</div></div>
+      <div class="rec-row"><div class="rec-k">Data generation</div><div class="rec-v"><strong>Chronic laminar electrode arrays</strong> sustained beyond a year in deep-sulcal recording; large-scale non-human-primate <em>in vivo</em> electrophysiology + automating software preprocessing pipelines. <strong>VR kinematics</strong> tracking visual inputs and hand gestures for object manipulations </div></div>
+      <div class="rec-row"><div class="rec-k">Engineering</div><div class="rec-v"><strong>Deep-learning &amp; computer-vision decoding</strong>; Mechanistic interpretability. Dynamical / recurrent models whose internal dynamics reproduce real population recordings.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="section alt-bg center">
+  <div class="container narrow">
+    <div class="prompt-label" style="text-align:center">Contact</div>
+    <h2>Get in touch</h2>
+    <p>Happy to talk about 3D perception, representational geometry, or the VR grasping pipeline — or possible collaborations.</p>
+    <div class="contact-links">
+      <a class="btn accent" href="mailto:yhb@mit.edu">yhb@mit.edu</a>
+      <a class="btn" href="https://www.linkedin.com/in/yoonbai" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/yoonbai" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot-in">
+    <span>Yoon H. Bai · Cambridge, MA</span>
+    <span>© 2026 · built with GitHub Pages</span>
+  </div>
+</footer>
+
+</body>
+</html>

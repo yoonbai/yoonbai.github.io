@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Straightening &amp; predictive coding — Yoon H. Bai</title>
+<meta name="description" content="How neural representations reshape moving inputs into straighter, more predictable trajectories — the representational-geometry framework from my PhD, and its downstream applications." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="static/site.css" />
+<style>
+  /* In-text citation markers [1] [2] [3] */
+  .cite{font-family:var(--sans);font-size:0.7em;font-weight:600;vertical-align:super;line-height:0;}
+  .cite a{color:var(--accent);text-decoration:none;}
+  .cite a:hover{text-decoration:underline;}
+  /* Linked publication titles (mirrors the rule in site.css) */
+  .pub-title a{color:inherit;text-decoration:none;}
+  .pub-title a:hover{color:var(--accent);text-decoration:underline;}
+  /* Keep the jumped-to reference clear of the sticky nav */
+  .pub[id]{scroll-margin-top:72px;}
+  #related-publications{scroll-margin-top:72px;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a href="index.html" class="nav-name">Yoon H. Bai</a>
+    <div class="nav-links">
+      <a href="3d-surface.html">NeuroAI</a>
+      <a href="straightening.html">Theory</a>
+      <a href="vr-grasping.html">Behavior</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header alt-bg">
+  <div class="container narrow">
+    <a href="index.html#research" class="breadcrumb">← Research</a>
+    <div class="kicker">Representation · Geometry</div>
+    <h1>Straightening &amp; predictive coding</h1>
+    <p class="summary">Hypothesis: the visual system reshapes the geometry of its representations so the near future becomes easy to predict.</p>
+    <div class="header-links">
+      <a class="btn accent" href="#related-publications">Related publications</a>
+      <!-- <a class="btn" href="https://arxiv.org/abs/2507.00583" target="_blank" rel="noopener">A downstream application</a> -->
+    </div>
+  </div>
+</header>
+
+<article class="article">
+  <div class="container narrow prose">
+
+    <h2>The idea</h2>
+    <p>
+      A moving scene traces a <strong>curved, tangled path</strong> through the space of raw pixels — hard to extrapolate even
+      one frame ahead. A guiding idea from my PhD is that the visual system remedies this by reshaping the
+      <strong>geometry of its representations</strong>: it maps temporally evolving inputs onto <strong>straighter</strong>
+      trajectories, where the next moment is close to a linear continuation of the last. Straightening turns prediction from an
+      intractable problem into a nearly geometric one, and connects naturally to predictive-coding accounts of cortex. Evidence consistent with this hypothesis comes from human psychophysics <a class="cite" href="#ref1">[1]</a>, macaque V1 population activity <a class="cite" href="#ref2">[2]</a>, and artificial neural networks <a class="cite" href="#ref3">[3]</a>. We are continuing this work to see if temporal straightening increases along the visual hierarchy, in collaboration with Robbe Goris, Tien Nguyen, Corey Ziemba, and Olivier Hénaff.
+    </p>
+
+    <div class="fig">
+      <img src="static/media/straightening2.pdf" alt="A curved input trajectory becomes straight in representation space" />
+      <p class="caption"><b>Figure 1.</b> Straightening of temporal trajectories in the representation domain. Incoming visual inputs can be described as a vector in a high-dimensional space that traces out a temporal trajectory. The dimensions of the input space can be thought of as activation levels of individual sensors (photoreceptors). Naturally occurring light patterns typically evolve in a complex, non-linear manner, which poses a challenge for predicting future states (curved blue trajectory). The temporal straightening hypothesis proposes that the visual system transforms its input such that it follows straighter temporal trajectories (straighter red trajectory), thereby facilitating perceptual tasks for future [t+1] predictions from past [t-1, t] representations, as shown in the dotted red arrow.</p>
+    </div>
+
+
+    <h2>Where the idea travels</h2>
+    <p>
+      This framework has since been applied well beyond neuroscience. <em>AI-Generated Video Detection via Perceptual
+      Straightening</em> <a class="cite" href="#ref2">[4]</a> uses representation straightening to tell real video from synthetic: natural clips trace straighter
+      trajectories in a self-supervised model's feature space than generated ones do, and that geometric signature alone drives
+      state-of-the-art detection. It's a clean example of a neuroscience principle becoming a practical measurement.
+    </p>
+
+    <h2 id="related-publications">Related publications</h2>
+    <ul class="pub-list">
+      <li class="pub" id="ref1">
+        <div class="pub-year">2019</div>
+        <div>
+          <span class="pub-note">[1]</span>
+          <div class="pub-title"><a href="https://doi.org/10.1038/s41593-019-0377-4" target="_blank" rel="noopener">Perceptual straightening of natural videos</a></div>
+          <div class="pub-authors">O. J. Hénaff, R. L. T. Goris, E. P. Simoncelli</div>
+          <div class="pub-venue">Nature Neuroscience · 2019 · 22(6), 984&ndash;991</div>
+          <div class="pub-tags"><a class="pub-tag" href="https://doi.org/10.1038/s41593-019-0377-4" target="_blank" rel="noopener">DOI</a></div>
+        </div>
+      </li>
+
+      <li class="pub" id="ref2">
+        <div class="pub-year">2021</div>
+        <div>
+          <span class="pub-note">[2] · co-first author</span>
+          <div class="pub-title"><a href="https://doi.org/10.1038/s41467-021-25939-z" target="_blank" rel="noopener">Primary visual cortex straightens natural video trajectories</a></div>
+          <div class="pub-authors">O. J. Hénaff*, <span class="me">Y. H. Bai*</span>, J. A. Charlton, I. Nauhaus, E. P. Simoncelli, R. L. T. Goris</div>
+          <div class="pub-venue">Nature Communications · 2021 · 12, 5982 &nbsp;·&nbsp; *equal contribution</div>
+          <div class="pub-tags"><a class="pub-tag" href="https://doi.org/10.1038/s41467-021-25939-z" target="_blank" rel="noopener">DOI</a></div>
+        </div>
+      </li>
+
+      <li class="pub" id="ref3">
+        <div class="pub-year">2023</div>
+        <div>
+          <span class="pub-note">[3]</span>
+          <div class="pub-title"><a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/88dddaf430b5bc38ab8228902bb61821-Abstract-Conference.html" target="_blank" rel="noopener">Large language models implicitly learn to straighten neural sentence trajectories to construct a predictive representation of natural language</a></div>
+          <div class="pub-authors">E. A. Hosseini, E. Fedorenko</div>
+          <div class="pub-venue">NeurIPS · 2023 · Adv. Neural Inf. Process. Syst. 36, 43918&ndash;43930</div>
+          <div class="pub-tags"><a class="pub-tag" href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/88dddaf430b5bc38ab8228902bb61821-Abstract-Conference.html" target="_blank" rel="noopener">NeurIPS</a> <a class="pub-tag" href="https://arxiv.org/abs/2311.04930" target="_blank" rel="noopener">arXiv</a></div>
+        </div>
+      </li>
+
+      <li class="pub">
+        <div class="pub-year">2025</div>
+        <div>
+          <span class="pub-note">Applies this framework</span>
+          <div class="pub-title"><a href="https://arxiv.org/abs/2507.00583" target="_blank" rel="noopener">AI-Generated Video Detection via Perceptual Straightening</a></div>
+          <div class="pub-authors">C. Internò, R. Geirhos, M. Olhofer, S. Liu, B. Hammer, D. Klindt</div>
+          <div class="pub-venue">NeurIPS 2025 · arXiv:2507.00583</div>
+          <div class="pub-tags"><a class="pub-tag" href="https://arxiv.org/abs/2507.00583" target="_blank" rel="noopener">arXiv</a></div>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</article>
+
+<footer>
+  <div class="container foot-in">
+    <span><a href="index.html">← Back to home</a></span>
+    <span>Yoon H. Bai · Cambridge, MA · 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>3D surface estimation in the brain — Yoon H. Bai</title>
+<meta name="description" content="Isolating a structure-from-motion region in primate dorsal cortex and benchmarking deep video models against neural and behavioral ground truth." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="static/site.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a href="index.html" class="nav-name">Yoon H. Bai</a>
+    <div class="nav-links">
+      <a href="3d-surface.html">NeuroAI</a>
+      <a href="straightening.html">Theory</a>
+      <a href="vr-grasping.html">Behavior</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header alt-bg">
+  <div class="container narrow">
+    <a href="index.html#research" class="breadcrumb">← Research</a>
+    <div class="kicker">Neuroscience · Physical AI</div>
+    <h1>3D vision in the brain</h1>
+    <p class="summary">Investigating world models of the brain — starting with 3D shape processing and how today's video models measure up.</p>
+    <div class="header-links">
+      <a class="btn accent" href="https://doi.org/10.64898/2026.05.13.724755" target="_blank" rel="noopener">Read the preprint</a>
+      <!-- <a class="btn" href="https://github.com/yoonbai/PROJECT" target="_blank" rel="noopener">Code</a> -->
+    </div>
+  </div>
+</header>
+
+<article class="article">
+  <div class="container narrow prose">
+
+    <h2>The question</h2>
+    <p>
+      How do we see 3D shape — for grasping, reaching, navigating — when the world is constantly in motion? The image on the retina is flat and ambiguous, yet we perceive a world of solid surfaces moving in depth. Recovering
+      that 3D structure is one of vision's hardest inverse problems, yet fundamental for physical interaction. 
+      This work asks <strong>which computation the brain uses</strong>, and <strong>where</strong> it might happen (if we were to intervene with BCI).
+    </p>
+
+    <div class="fig">
+      <img src="static/media/three_clips_sidebyside_loop.gif" alt="example stimuli" loading="lazy" />
+      <p class="caption"><b>Figure 1.</b> To isolate motion-defined surface geometry, we built texture-masked rotating objects: identical textures on foreground and background camouflage static cues, so the only way to recover 3D shape is from motion. Trivial for humans, hard for current vision models.</p>
+    </div>
+
+    <h2>Approach</h2>
+    <p>
+      Using a purpose-built stimulus paradigm, we combine <strong>large-scale chronic electrophysiology in the dorsal and ventral visual pathways</strong> with <strong>human psychophysics</strong> to isolate a structure-from-motion region and characterize neural representations that track human behavioral patterns. The stimuli are designed so that the mechanism of interest can be turned on and off, separating shape-from-motion inference from lower-level motion or luminance cues. In other words, the object rotated briefly midway of a video clip, as shown in the yellow rectangular epoch in Figure 2(b). 
+    </p>
+
+    <div class="fig">
+      <img src="static/media/figure_3.pdf" alt="neural decoding" />
+      
+        <p class="caption"><b>Figure 2.</b> (a) <b>Neural recordings</b>. Spiking activity were recorded from both ventral and dorsal streams using chronic multi-electrode arrays. Ventral recordings targeted IT with surface arrays (areas pIT, cIT, aIT). Dorsal recordings targeted IPL regions buried within sulci using volumetric arrays (areas Tpt and 7op). (b) <b>Neural decoding</b>. Downstream regions of both ventral and dorsal streams carry explicit (linearly decodable) representations of motion-defined surfaces. A single linear decoder was trained on spike rates estimated from the dynamic period (100&ndash;300ms), pooled across all three object sizes, and evaluated on held-out trials. Decoding performances are shown separately for each object size (6&deg;, 16&deg;, and 27&deg;) with increasing line thickness corresponding to increasing object size. Rectangular regions in grey and yellow indicate periods of static and dynamic frames, respectively. Shaded regions indicate SEM across cross-validation folds. (c) <b>Neural readouts versus human accuracies</b>. We correlated condition-wise accuracies across the same 90 conditions tested on human participants and from neural decoding. (d) <b>Neural scaling</b>. Neural decoding performances over different numbers of resampled units. Error bars indicate SEM from resampled units; grey dotted line indicates chance performance at 0.5. (e) <b>Behavioral alignment versus neural scaling</b>. Alignment between neural readouts and behavioral performance is plotted against the number of resampled neurons. Alignment is quantified with the Spearman correlation coefficient calculated across accuracies from 90 conditions. Error bars indicate SEM from resampled units. Grey shaded band indicates 95% percentile interval of human-to-human consistency, estimated as the condition-wise split-half reliability of human condition means.</p>
+
+    </div>
+
+    <h2>Benchmarking models on the mechanism</h2>
+    <p>
+      We then test <strong>deep video models</strong> against this neural and behavioral ground truth. In the linked paper, we graded a model on its generalization capabilities on both benchmarks to test whether it reproduces the <strong>specific computation</strong> for a brain region. We argue this approach is a much stronger test of whether a model sees 3D structure the way the brain does.
+    </p>
+    <p>
+      Our model zoo spans two axes that separate the contributions of input modality and training objective. Along one axis, models progress from static-image to video input; along the other, from supervised classification to self-supervised prediction. Image models include supervised CNNs and ViTs, self-supervised DINOv2, and PerceptionEncoder, a contrastive vision–language foundation model (with video-text finetuning), none of which learn explicitly from temporal structure. Video models include supervised TimeSformer and the self-supervised VideoMAE and V-JEPAs. We refer to V-JEPA and VideoMAE collectively as <b>predictive coding video models</b>, to emphasize a shared training strategy -- learning representations by predicting withheld sensory content, including future time steps from past context. 
+    </p>
+
+    
+
+    <div class="fig">
+      <img src="static/media/figure_4_with_zoo.pdf" alt="model eval" />
+      <p class="caption"><b>Figure 3.</b> (a) <b>Model zoo.</b> A rough summary of model classes. Note: PerceptionEncoder was grouped in a coarse manner but should be clarified that it uses contrastive learning -- trained on 5.4 billion image–text pairs (MetaCLIP; 86 billion total samples seen) with 22 million additional video–text finetuning samples. (b) <b>Model accuracy</b> on a 3D shape discrimination task (with camouflage), as a function of layer depth. For each model class, the highest accuracy across models within that class is shown at each layer. (c) <b>Model consistency</b> with condition-wise human discrimination performance as a function of layer depth, using the same layer-wise selection procedure as in (b). (d) <b>Model accuracy versus behavioral consistency</b> for each model's best-performing layer (selected by peak behavioral consistency). Each dot corresponds to a specific model. Predictive coding video models occupy the highest accuracy&ndash;consistency regime.</p>span></p>
+    </div>
+
+    <h2>One conclusion I'd like to emphasize</h2>
+      <p>
+      In summary, predictive coding video models lead the pack. More importantly, this model class offers theoretical and practical insights for computational modeling of vision in dynamic, naturalistic settings. A distinguishing feature of V-JEPA and VideoMAE, relative to others in our model zoo, is their training objective: learning to predict spatiotemporal regularities from natural videos without explicit supervision using annotated data. This objective resonates with predictive coding frameworks in neuroscience, which propose that the brain learns internal models to anticipate incoming sensory input (including the work in the next page). Under this view, the dorsal pathway could be considered beyond a motion-processing system, which include capabilities for inferring spatial properties such as surface geometry and ultimately object shape. Notably, predictive coding models trained on substantially smaller datasets surpassed larger-scale multimodal foundation models, suggesting that training objectives emphasizing temporal prediction could lead to model-training efficiency -- improving both behavioral discrimination of spatial structure and alignment with cortical representations of surface geometry. Learning objectives that capture causal structure in natural videos may therefore be a productive direction for developing brain-like representations in artificial systems, potentially bestowing human-like efficiencies when interacting with objects in complex natural environments.
+      </p>
+
+    <h2>Related publications</h2>
+    <ul class="pub-list">
+      <li class="pub">
+        <div class="pub-year">2026</div>
+        <div>
+          <div class="pub-title"><a href="https://doi.org/10.64898/2026.05.13.724755" target="_blank" rel="noopener">Predictive coding video models capture dorsal parietal representations and human judgments for surfaces defined by motion</a></div>
+          <div class="pub-venue">bioRxiv · submitted to journal</div>
+          
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</article>
+
+<footer>
+  <div class="container foot-in">
+    <span><a href="index.html">← Back to home</a></span>
+    <span>Yoon H. Bai · Cambridge, MA · 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
