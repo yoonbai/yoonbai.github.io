@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shape-from-motion stimuli — Yoon H. Bai</title>
+<meta name="description" content="Texture-masked rotating objects used to isolate motion-defined surface geometry: six example clips from the shape-from-motion stimulus set." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="static/site.css" />
+
+<style>
+  /* ---------- clip grid: 2 rows x 3 clips, each 256px wide ---------- */
+  .clip-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 256px);
+    gap:1.6rem;
+    justify-content:center;
+    margin:2.4rem 0 0;
+  }
+  .clip{margin:0;}
+  .clip video{
+    width:256px;height:256px;object-fit:cover;display:block;
+    background:var(--bg-alt);
+    border:1px solid var(--border);border-radius:8px;
+  }
+  .clip figcaption{
+    font-family:var(--mono);font-size:0.68rem;letter-spacing:0.06em;
+    color:var(--text-secondary);margin-top:0.5rem;text-align:center;
+  }
+  @media(max-width:900px){.clip-grid{grid-template-columns:repeat(2, 256px);}}
+  @media(max-width:620px){
+    .clip-grid{grid-template-columns:1fr;gap:1.2rem;}
+    .clip video{width:100%;height:auto;aspect-ratio:1/1;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a href="index.html" class="nav-name">Yoon H. Bai</a>
+    <div class="nav-links">
+      <a href="3d-surface.html">NeuroAI</a>
+      <a href="straightening.html">Theory</a>
+      <a href="vr-grasping.html">Behavior</a>
+      <a href="index.html#publications">Publications</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header alt-bg">
+  <div class="container narrow">
+    <a href="3d-surface.html" class="breadcrumb">← 3D vision in the brain</a>
+    <div class="kicker">Stimuli · Shape-from-motion</div>
+    <h1>Shape-from-motion</h1>
+    <p class="summary">Texture-masked rotating objects</p>
+  </div>
+</header>
+
+<article class="article">
+  <div class="container prose">
+
+    <h2>Example stimuli</h2>
+    <p>
+      An abstract object is shown below, but its surface geometry is painted differently. The first, shaded object, shows a foreground object with no camouflage. For the remaining clips, the foreground and background carry identical textures which masks the object shapes. Each clip is 400ms long, but it is played forward-then-backward -- rotation epoch repeats without a cut.
+    </p>
+
+    <!-- ============================================================
+         TO SWAP IN YOUR FILES: rename the six .mp4 files below to
+         match what you upload to static/media/, and edit the captions.
+         Everything else (256px sizing, back-and-forth playback) is automatic.
+         ============================================================ -->
+    <div class="clip-grid">
+
+      <figure class="clip">
+        <video src="static/media/stimuli/1680.mp4" class="pingpong" muted playsinline preload="metadata"></video>
+        <figcaption>Shaded</figcaption>
+      </figure>
+
+      <figure class="clip">
+        <video src="static/media/stimuli/1687.mp4" class="pingpong" muted playsinline preload="metadata"></video>
+        <figcaption>Surface texture 1</figcaption>
+      </figure>
+
+      <figure class="clip">
+        <video src="static/media/stimuli/1694.mp4" class="pingpong" muted playsinline preload="metadata"></video>
+        <figcaption>Surface texture 2</figcaption>
+      </figure>
+
+      <figure class="clip">
+        <video src="static/media/stimuli/1701.mp4" class="pingpong" muted playsinline preload="metadata"></video>
+        <figcaption>Surface texture 3</figcaption>
+      </figure>
+
+      <figure class="clip">
+        <video src="static/media/stimuli/1708.mp4" class="pingpong" muted playsinline preload="metadata"></video>
+        <figcaption>Surface texture 4</figcaption>
+      </figure>
+
+      <figure class="clip">
+        <video src="static/media/stimuli/1715.mp4" class="pingpong" muted playsinline preload="metadata"></video>
+        <figcaption>Surface texture 5</figcaption>
+      </figure>
+
+    </div>
+
+   <!--  <div class="container narrow" style="padding:0;">
+      <p class="caption" style="margin-top:1.4rem;">
+        <b>Figure 1.</b> Six examples from the shape-from-motion stimulus set. Each clip plays forward and then in
+        reverse, looping continuously.
+      </p>
+    </div> -->
+
+  </div>
+</article>
+
+<footer>
+  <div class="container foot-in">
+    <span><a href="3d-surface.html">← Back to 3D vision in the brain</a></span>
+    <span>Yoon H. Bai · Cambridge, MA · 2026</span>
+  </div>
+</footer>
+
+<script>
+/* Back-and-forth (ping-pong) playback for every <video class="pingpong">.
+   Forward playback is native; the reverse leg is driven by requestAnimationFrame
+   stepping currentTime backwards. Videos pause when scrolled out of view. */
+(function () {
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('video.pingpong').forEach(function (v) {
+    var raf = null, lastTs = null, visible = true;
+
+    function stopReverse() {
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+      lastTs = null;
+    }
+
+    function reverseStep(ts) {
+      if (lastTs === null) lastTs = ts;
+      var dt = (ts - lastTs) / 1000;
+      lastTs = ts;
+      var t = v.currentTime - dt;
+      if (t <= 0 || !visible) {
+        v.currentTime = 0;
+        stopReverse();
+        if (visible) v.play().catch(function () {});
+        return;
+      }
+      v.currentTime = t;
+      raf = requestAnimationFrame(reverseStep);
+    }
+
+    v.addEventListener('ended', function () {
+      if (!visible) return;
+      stopReverse();
+      raf = requestAnimationFrame(reverseStep);
+    });
+
+    // Show a first frame even before playback starts.
+    v.addEventListener('loadedmetadata', function () {
+      if (v.currentTime === 0) v.currentTime = 0.001;
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          visible = e.isIntersecting;
+          if (visible) {
+            if (!raf && !reduceMotion) v.play().catch(function () {});
+          } else {
+            stopReverse();
+            v.pause();
+          }
+        });
+      }, { threshold: 0.1 }).observe(v);
+    } else if (!reduceMotion) {
+      v.play().catch(function () {});
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
